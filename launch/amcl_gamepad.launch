@@ -13,7 +13,11 @@
 
   <arg name="scan_topic" default="/scan" />
   <arg name="odom_topic" default="/odom" />
+  <arg name="map_file" default="$(find raspimouse_amcl_gamepad)/maps/ueda_room.yaml"/>
 
-  </node>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" output="screen"/>
+
+  <include file="$(find raspimouse_amcl_gamepad)/launch/run_amcl.launch" />
+
 </launch>
 
