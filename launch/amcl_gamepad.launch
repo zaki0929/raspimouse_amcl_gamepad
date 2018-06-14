@@ -1,23 +1,13 @@
 <launch>
-  <include file="$(find raspimouse_ros_2)/launch/raspimouse.launch" /> 
-
-  <node pkg="joy" name="joy_node" type="joy_node" required="true">
-    <param name="autorepeat_rate" value="3" />
-  </node>
-
-  <node pkg="raspimouse_game_controller" name="logicool_cmd_vel" type="logicool_cmd_vel.py" required="true" />
+  <include file="$(find raspimouse_ros_2)/launch/raspimouse.launch" />
+  <include file="$(find raspimouse_game_controller)/launch/logicool.launch" /> 
 
   <node pkg="urg_node" name="urg_node" type="urg_node" required="true" >
         <param name="frame_id" value="base_link"/>
   </node>
 
-  <arg name="scan_topic" default="/scan" />
-  <arg name="odom_topic" default="/odom" />
   <arg name="map_file" default="$(find raspimouse_amcl_gamepad)/maps/ueda_room.yaml"/>
-
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" output="screen"/>
 
   <include file="$(find raspimouse_amcl_gamepad)/launch/run_amcl.launch" />
-
 </launch>
-
